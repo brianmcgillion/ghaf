@@ -37,6 +37,9 @@
 
           environment.systemPackages = [
             installScript
+            pkgs.hwinfo
+            pkgs.tree
+            pkgs.v4l-utils
           ];
 
           isoImage.squashfsCompression = "zstd -Xcompression-level 3";

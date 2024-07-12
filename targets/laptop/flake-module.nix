@@ -48,6 +48,15 @@
         };
       }
     ])
+    (laptop-configuration "dell-latitude-7330" "debug" [
+      self.nixosModules.disko-basic-partition-v1
+      {
+        ghaf = {
+          hardware.definition.configFile = "/dell/latitude/7330.nix";
+          profiles.mvp-user-trial.enable = true;
+        };
+      }
+    ])
   ];
 in {
   flake = {
