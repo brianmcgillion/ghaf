@@ -52,6 +52,8 @@ in {
           
           speedtest-cli
           iperf
+          fwupd
+          udisks
           ;
       }
       ++

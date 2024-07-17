@@ -21,10 +21,10 @@
       evdev = ["/dev/input/by-path/platform-i8042-serio-0-event-kbd"];
     };
 
-    mouse = {
-      name = ["PS/2 Generic Mouse"];
-      evdev = ["/dev/mouse"];
-    };
+    # mouse = {
+    #   name = ["PS/2 Generic Mouse"];
+    #   evdev = ["/dev/mouse"];
+    # };
 
     # touchpad = {
     #   name = [
@@ -57,7 +57,7 @@
       # Passthrough Intel WiFi card
       path = "0000:72:00.0";
       vendorId = "8086";
-      productId = "0280";
+      productId = "00002725";
       name = "wlp0s5f0";
     }
   ];
@@ -68,7 +68,7 @@
         # Passthrough Intel Iris GPU
         path = "0000:00:02.0";
         vendorId = "8086";
-        productId = "0a9e";
+        productId = "9a49";
       }
     ];
     kernelConfig = {

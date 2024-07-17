@@ -310,5 +310,6 @@ in {
       # Service startup optimization
       services.systemd-networkd-wait-online.enable = mkForce false;
     };
+    services.fwupd.enable = true;
   };
 }
