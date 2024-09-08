@@ -24,6 +24,7 @@
         windows-launcher = callPackage ./windows-launcher { enableSpice = false; };
         windows-launcher-spice = callPackage ./windows-launcher { enableSpice = true; };
         hardware-scan = callPackage ./hardware-scan { };
+        ghaf-eww-widgets = callPackage ./ghaf-eww-widgets { };
         doc = callPackage ../docs {
           revision = lib.strings.fileContents ../.version;
           options =

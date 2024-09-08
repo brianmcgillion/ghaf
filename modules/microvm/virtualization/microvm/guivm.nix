@@ -112,6 +112,8 @@ let
               ++ [
                 pkgs.nm-launcher
                 pkgs.pamixer
+                pkgs.eww
+                pkgs.ghaf-eww-widgets
               ]
               ++ (lib.optional (
                 config.ghaf.profiles.debug.enable && config.ghaf.virtualization.microvm.idsvm.mitmproxy.enable

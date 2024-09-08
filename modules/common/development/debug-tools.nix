@@ -31,41 +31,42 @@ in
       builtins.attrValues {
         inherit (pkgs)
           # For lspci:
-
           pciutils
+
           # For lsusb:
-
           usbutils
+
           # Useful in NetVM
-
           ethtool
-          # Basic monitors
 
+          # Basic monitors
           iftop
           iotop
           traceroute
           dig
           evtest
+
           # For deleting Linux Boot Manager entries in automated testing
-
           efibootmgr
-          # Performance testing
 
+          # Performance testing
           speedtest-cli
           iperf
-          tree
-          file
-          # to build ghaf on target
 
+          # to build ghaf on target
           git
 
           # Grpc testing
-
           grpcurl
+
+          #basic tools
+          fd
+          tree
+          file
           ;
       }
       ++
-        # Match perf version with kernel.
+        # Match Perf Version With Kernel.
         [
           #(config.boot.kernelPackages.perf.override {python3 = pkgs.python311;})
           sysbench-test-script
