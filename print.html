@@ -4467,11 +4467,21 @@ path</p>
 <li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/desktop/graphics/labwc.nix">https://github.com/tiiuae/ghaf/blob/main/modules/desktop/graphics/labwc.nix</a></li>
 </ul>
 <h2 id="ghafgraphicslaunchers"><a class="header" href="#ghafgraphicslaunchers">ghaf.graphics.launchers</a></h2>
-<p>Labwc application launchers to show in launch bar</p>
+<p>Application launchers to show in the system drawer or launcher.</p>
 <p><em>Type:</em>
 list of (submodule)</p>
 <p><em>Default:</em>
 <code>[ ]</code></p>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix">https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix</a></li>
+</ul>
+<h2 id="ghafgraphicslaunchersdescription"><a class="header" href="#ghafgraphicslaunchersdescription">ghaf.graphics.launchers.*.description</a></h2>
+<p>Description of the application</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>"Secured Ghaf Application"</code></p>
 <p><em>Declared by:</em></p>
 <ul>
 <li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix">https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix</a></li>
@@ -4496,6 +4506,16 @@ string</p>
 <p>Path to the executable to be launched</p>
 <p><em>Type:</em>
 path</p>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix">https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix</a></li>
+</ul>
+<h2 id="ghafgraphicslaunchersvm"><a class="header" href="#ghafgraphicslaunchersvm">ghaf.graphics.launchers.*.vm</a></h2>
+<p>VM name in case this launches an isolated application.</p>
+<p><em>Type:</em>
+null or string</p>
+<p><em>Default:</em>
+<code>null</code></p>
 <p><em>Declared by:</em></p>
 <ul>
 <li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix">https://github.com/tiiuae/ghaf/blob/main/modules/desktop/profiles/graphics.nix</a></li>
@@ -5896,6 +5916,16 @@ boolean</p>
 <ul>
 <li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/common/profiles/release.nix">https://github.com/tiiuae/ghaf/blob/main/modules/common/profiles/release.nix</a></li>
 </ul>
+<h2 id="ghafqemuaudiovm"><a class="header" href="#ghafqemuaudiovm">ghaf.qemu.audiovm</a></h2>
+<p>Extra qemu arguments for AudioVM</p>
+<p><em>Type:</em>
+attribute set</p>
+<p><em>Default:</em>
+<code>{ }</code></p>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/hardware/common/qemu.nix">https://github.com/tiiuae/ghaf/blob/main/modules/hardware/common/qemu.nix</a></li>
+</ul>
 <h2 id="ghafqemuguivm"><a class="header" href="#ghafqemuguivm">ghaf.qemu.guivm</a></h2>
 <p>Extra qemu arguments for GuiVM</p>
 <p><em>Type:</em>
@@ -6324,6 +6354,18 @@ signed integer</p>
 <p><em>Declared by:</em></p>
 <ul>
 <li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/common/services/audio.nix">https://github.com/tiiuae/ghaf/blob/main/modules/common/services/audio.nix</a></li>
+</ul>
+<h2 id="ghafservicesbluetoothenable"><a class="header" href="#ghafservicesbluetoothenable">ghaf.services.bluetooth.enable</a></h2>
+<p>Whether to enable Bluetooth configurations.</p>
+<p><em>Type:</em>
+boolean</p>
+<p><em>Default:</em>
+<code>false</code></p>
+<p><em>Example:</em>
+<code>true</code></p>
+<p><em>Declared by:</em></p>
+<ul>
+<li><a href="https://github.com/tiiuae/ghaf/blob/main/modules/common/services/bluetooth.nix">https://github.com/tiiuae/ghaf/blob/main/modules/common/services/bluetooth.nix</a></li>
 </ul>
 <h2 id="ghafservicesdesktopenable"><a class="header" href="#ghafservicesdesktopenable">ghaf.services.desktop.enable</a></h2>
 <p>Whether to enable Enable the desktop configuration.</p>
@@ -8737,20 +8779,16 @@ irtio-pmem-pci,memdev=mem1,id=nv1'
 <p>On build failure, Builder Controller sends failure notifications to Message Service.</p>
 </li>
 <li>
-<p>Builder Controller uploads all build artifacts to Binary Cache and disk images to Web Server.</p>
+<p>Builder Controller uploads all build artifacts to Binary Cache.</p>
 </li>
 <li>
-<p>Test Automation fetches disk images from Binary Cache and runs the hardware test on them.</p>
+<p>Test Automation fetches disk images from the Controller and runs the hardware test on them.</p>
 </li>
 <li>
-<p>Test Automation uploads test reports to Web Server.</p>
+<p>Test Automation sends test reports to the Controller.</p>
 </li>
 <li>
-<p>Users can download images from Web Server:</p>
-<ul>
-<li>release images <a href="https://vedenemo.dev/files/releases/">https://vedenemo.dev/files/releases/</a></li>
-<li>images for testing <a href="https://vedenemo.dev/files/build_reports/">https://vedenemo.dev/files/build_reports/</a>.</li>
-</ul>
+<p>Users can download images and test reports from the Controller</p>
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><style>
