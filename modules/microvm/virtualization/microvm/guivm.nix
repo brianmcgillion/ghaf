@@ -75,6 +75,14 @@ let
                 "Pictures"
                 "Videos"
               ];
+              directories = [
+                {
+                  directory = "/var/lib/fprint";
+                  user = "root";
+                  group = "root";
+                  mode = "u=rwx,g=,o=";
+                }
+              ];
             };
             services.disks.enable = true;
             services.disks.fileManager = "${pkgs.pcmanfm}/bin/pcmanfm";
