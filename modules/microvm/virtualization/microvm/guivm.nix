@@ -177,6 +177,8 @@ let
               extraArgs = [
                 "-device"
                 "vhost-vsock-pci,guest-cid=${toString cfg.vsockCID}"
+                 "-drive" "file=${pkgs.OVMF.fd}/FV/OVMF_CODE.fd,if=pflash,unit=0,readonly=true"
+      "-drive" "file=${pkgs.OVMF.fd}/FV/OVMF_VARS.fd,if=pflash,unit=1,readonly=true"
               ];
 
               machine =
@@ -275,6 +277,9 @@ in
           }
         ];
 
+        boot.initrd.systemd.enable = true;
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
         imports = guivmBaseConfiguration.imports ++ cfg.extraModules;
       };
     };
