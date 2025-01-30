@@ -26,15 +26,6 @@ in
       }
     ];
 
-    boot.kernelPatches = [
-      {
-        name = "nx-pci-passthrough-patch";
-        # This patch uses Alex Williamson's patch for enabling overrides for missing ACS capabilities on pci
-        # bus which could be accessed from following link: https://lkml.org/lkml/2013/5/30/513
-        patch = ./0001-pci-add-pci_acs_override-for-pci-passthrough.patch;
-      }
-    ];
-
     hardware.deviceTree.overlays = [
       {
         name = "nx-ethernet-pci-passthough-overlay";
