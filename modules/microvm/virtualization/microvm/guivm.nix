@@ -126,6 +126,25 @@ let
             xdgitems.enable = true;
           };
 
+          hardware = {
+
+            graphics = {
+              enable = true;
+            };
+
+            # nvidia = {
+            #   modesetting.enable = true;
+            #   powerManagement.enable = false;
+            #   powerManagement.finegrained = false;
+            #   open = false;
+            #   nvidiaSettings = true;
+            #   #package = config.boot.kernelPackages.nvidiaPackages.latest;
+            # };
+          };
+
+          #Load nvidia driver for Xorg and Wayland
+          services.xserver.videoDrivers = [ "nvidia" ];
+
           services = {
             acpid = lib.mkIf config.ghaf.givc.enable {
               enable = true;

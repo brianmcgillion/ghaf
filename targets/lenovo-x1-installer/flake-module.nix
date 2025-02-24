@@ -4,7 +4,7 @@
 # Lenovo X1 Carbon Installer
 { lib, self, ... }:
 let
-  name = "lenovo-x1-carbon";
+  name = "alienware";
   system = "x86_64-linux";
   installer =
     generation: variant:
@@ -67,12 +67,13 @@ let
       package = hostConfiguration.config.system.build.isoImage;
     };
   targets = [
-    (installer "gen10" "debug")
-    (installer "gen11" "debug")
-    (installer "gen12" "debug")
-    (installer "gen10" "release")
-    (installer "gen11" "release")
-    (installer "gen12" "release")
+    # (installer "gen10" "debug")
+    # (installer "gen11" "debug")
+    # (installer "gen12" "debug")
+    # (installer "gen10" "release")
+    # (installer "gen11" "release")
+    # (installer "gen12" "release")
+    (installer "m18" "debug")
   ];
 in
 {
