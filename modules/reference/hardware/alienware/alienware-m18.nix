@@ -29,11 +29,11 @@
     keyboard = {
       name = [
         "AT Translated Set 2 keyboard"
-        # "DELL Technologies Keyboard"
+        "DELL Technologies Keyboard"
       ];
       evdev = [
         "/dev/keyboard0"
-        #"/dev/keyboard1"
+        "/dev/keyboard1"
       ];
     };
 
