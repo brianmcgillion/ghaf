@@ -7,6 +7,13 @@
   ncurses,
   writeShellApplication,
   zstd,
+  cryptsetup,
+  gptfdisk,
+  parted,
+  e2fsprogs,
+  btrfs-progs,
+  dosfstools,
+  rsync,
 }:
 writeShellApplication {
   name = "ghaf-installer";
@@ -16,6 +23,13 @@ writeShellApplication {
     zstd
     hwinfo
     ncurses # Needed for `clear` command
+    cryptsetup # LUKS encryption operations
+    gptfdisk # sgdisk for GPT partitioning
+    parted # Partition management
+    e2fsprogs # ext4 filesystem tools
+    btrfs-progs # btrfs filesystem tools
+    dosfstools # vfat/FAT filesystem tools
+    rsync # Efficient file copying
   ];
   text = builtins.readFile ./ghaf-installer.sh;
   meta = {
