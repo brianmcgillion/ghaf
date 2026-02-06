@@ -105,11 +105,17 @@ let
       };
 
       # Variant configuration (debug/release profiles)
+      # Sets both:
+      # 1. ghaf.profiles.{debug,release}.enable for host-side module activation
+      # 2. ghaf.global-config to the corresponding profile for VM-side config propagation
       variantModule = {
         ghaf.profiles = {
           debug.enable = variant == "debug";
           release.enable = variant == "release";
         };
+        # Set global-config to match the variant's profile
+        # This propagates configuration (like ssh.daemon.enable) to VMs via specialArgs
+        ghaf.global-config = lib.ghaf.profiles.${variant} or lib.ghaf.profiles.minimal;
       };
 
       # Build the host NixOS configuration

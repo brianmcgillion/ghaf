@@ -150,6 +150,7 @@ in
       modules = [
         inputs.microvm.nixosModules.microvm
         inputs.self.nixosModules.audiovm-base
+        inputs.self.nixosModules.audiovm-features
         # Import nixpkgs config module to get overlays
         {
           nixpkgs.overlays = config.nixpkgs.overlays;
@@ -194,6 +195,14 @@ in
     # Unlike singleton VMs, App VMs are instantiated multiple times
     ghaf.profiles.laptop-x86.mkAppVm =
       vmDef:
+      let
+        # Get additional applications from host-level option (e.g., from ghaf-intro.nix)
+        hostLevelApps = config.ghaf.virtualization.microvm.appvm.vms.${vmDef.name}.applications or [ ];
+        # Merge vmDef applications with host-level applications
+        mergedVmDef = vmDef // {
+          applications = (vmDef.applications or [ ]) ++ hostLevelApps;
+        };
+      in
       lib.nixosSystem {
         inherit (inputs.nixpkgs.legacyPackages.x86_64-linux) system;
         modules = [
@@ -214,8 +223,8 @@ in
               vmName = "${vmDef.name}-vm";
             }
             // {
-              # App VM-specific hostConfig fields
-              appvm = vmDef;
+              # App VM-specific hostConfig fields (with merged applications)
+              appvm = mergedVmDef;
               # Pass shared directory config for storage
               sharedVmDirectory =
                 config.ghaf.virtualization.microvm-host.sharedVmDirectory or {
