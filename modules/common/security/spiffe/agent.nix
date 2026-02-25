@@ -188,6 +188,12 @@ in
       default = [ "ghaf" ];
       description = "Users added to workloadApiGroup for SPIRE Workload API access";
     };
+
+    commonMountPath = lib.mkOption {
+      type = lib.types.str;
+      default = "/etc/common";
+      description = "Path to the common virtiofs mount (VMs use /etc/common, host uses /persist/common)";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -241,7 +247,7 @@ in
         "spire-devid-provision.service"
       ];
       unitConfig = {
-        RequiresMountsFor = [ "/etc/common" ];
+        RequiresMountsFor = [ cfg.commonMountPath ];
       };
 
       serviceConfig = {

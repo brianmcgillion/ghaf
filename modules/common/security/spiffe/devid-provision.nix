@@ -58,15 +58,34 @@ let
       else
         echo "Generating DevID key for $VM_NAME..."
 
-        # Try to create primary key — hierarchies may be disabled when TPM is shared
-        if ! tpm2_createprimary -C owner -c "$DEVID_DIR/primary.ctx" -Q 2>/dev/null && \
-           ! tpm2_createprimary -C endorsement -c "$DEVID_DIR/primary.ctx" -Q 2>/dev/null; then
-          echo "WARNING: Cannot create TPM primary key — all hierarchies disabled"
-          echo "This is expected when TPM is shared across VMs with LUKS encryption"
+        # Wait for a TPM hierarchy to become accessible (max 60s).
+        # Prefer endorsement hierarchy for identity attestation.
+        TPM_READY=0
+        TPM_HIERARCHY=""
+        for attempt in $(seq 1 30); do
+          if tpm2_createprimary -C endorsement -c "$DEVID_DIR/primary.ctx" -Q 2>/dev/null; then
+            TPM_READY=1
+            TPM_HIERARCHY="endorsement"
+            break
+          fi
+          if tpm2_createprimary -C owner -c "$DEVID_DIR/primary.ctx" -Q 2>/dev/null; then
+            TPM_READY=1
+            TPM_HIERARCHY="owner"
+            break
+          fi
+          rm -f "$DEVID_DIR/primary.ctx"
+          echo "Waiting for TPM hierarchy... ($attempt/30)"
+          sleep 2
+        done
+        if [ "$TPM_READY" -eq 0 ]; then
+          TPM_ERR=$(tpm2_createprimary -C endorsement -c "$DEVID_DIR/primary.ctx" -Q 2>&1) || true
+          rm -f "$DEVID_DIR/primary.ctx"
+          echo "No TPM hierarchy accessible after 60s: $TPM_ERR"
           echo "Falling back to join_token attestation"
           echo "no-hierarchy" > /run/tpm/devid-status 2>/dev/null || true
           exit 0
         fi
+        echo "Using $TPM_HIERARCHY hierarchy for DevID"
 
         # Create RSA-2048 signing key under the primary
         tpm2_create -C "$DEVID_DIR/primary.ctx" -G rsa2048:rsassa:sha256 \

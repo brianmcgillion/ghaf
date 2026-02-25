@@ -142,6 +142,8 @@ in
             trustDomain = config.ghaf.global-config.spiffe.trustDomain or "ghaf.internal";
             joinTokenFile = "/persist/common/spire/tokens/${config.networking.hostName}.token";
             trustBundlePath = "/persist/common/spire/bundle.pem";
+            # Host reads common dir at /persist/common (not /etc/common like VMs)
+            commonMountPath = "/persist/common";
           };
         };
       };
